@@ -2,6 +2,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useI18n } from '../contexts/I18nContext';
 import { useModal } from '../hooks/useModal';
 import { Modal } from './ui/Modal';
+import { Button } from './ui';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function LoginPage() {
@@ -42,9 +43,12 @@ export function LoginPage() {
         <p className="text-white/90 mb-8">
           {t('login.subtitle')}
         </p>
-        <button
+        <Button
           onClick={handleGoogleSignIn}
-          className="flex items-center justify-center gap-2 px-6 py-3 text-base border border-gray-300 rounded-lg bg-white text-gray-800 cursor-pointer w-full max-w-xs mx-auto transition-all hover:bg-gray-50 hover:shadow-md"
+          disabled={loading}
+          variant="secondary"
+          size="lg"
+          className="w-full flex items-center justify-center gap-2"
         >
           <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fillRule="evenodd">
@@ -66,8 +70,8 @@ export function LoginPage() {
               />
             </g>
           </svg>
-          {t('login.signIn')}
-        </button>
+          {loading ? t('common.loading') : t('login.signIn')}
+        </Button>
       </div>
 
       <Modal
