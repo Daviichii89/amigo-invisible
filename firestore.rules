@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Grupos - Solo el admin puede crear
+    match /groups/{groupId} {
+      // Leer: cualquier usuario autenticado puede leer grupos donde es miembro
+      allow read: if request.auth != null;
+      
+      // Crear: cualquier usuario autenticado puede crear un grupo
+      allow create: if request.auth != null 
+        && request.auth.uid == request.resource.data.adminUserId;
+      
+      // Actualizar/Eliminar: solo el admin del grupo
+      allow update, delete: if request.auth != null 
+        && request.auth.uid == resource.data.adminUserId;
+      
+      // Participantes dentro de un grupo
+      match /participants/{participantId} {
+        // Leer: cualquier miembro del grupo puede leer participantes
+        allow read: if request.auth != null;
+        
+        // Crear: el admin o cualquier usuario autenticado (al unirse)
+        allow create: if request.auth != null;
+        
+        // Actualizar: el admin del grupo o el propio participante
+        allow update: if request.auth != null 
+          && (request.auth.uid == get(/databases/$(database)/documents/groups/$(groupId)).data.adminUserId
+              || request.auth.uid == resource.data.userId);
+        
+        // Eliminar: solo el admin del grupo
+        allow delete: if request.auth != null 
+          && request.auth.uid == get(/databases/$(database)/documents/groups/$(groupId)).data.adminUserId;
+        
+        // Regalos de cada participante
+        match /gifts/{giftId} {
+          // Leer: cualquier miembro del grupo
+          allow read: if request.auth != null;
+          
+          // Crear/Actualizar/Eliminar: el admin del grupo o el dueño del participante
+          allow create, update, delete: if request.auth != null 
+            && (request.auth.uid == get(/databases/$(database)/documents/groups/$(groupId)).data.adminUserId
+                || request.auth.uid == get(/databases/$(database)/documents/groups/$(groupId)/participants/$(participantId)).data.userId);
+        }
+      }
+      
+      // Miembros del grupo
+      match /members/{memberId} {
+        // Leer: cualquier usuario autenticado
+        allow read: if request.auth != null;
+        
+        // Crear: al unirse al grupo
+        allow create: if request.auth != null;
+        
+        // Actualizar/Eliminar: solo el admin
+        allow update, delete: if request.auth != null 
+          && request.auth.uid == get(/databases/$(database)/documents/groups/$(groupId)).data.adminUserId;
+      }
+    }
+  }
+}
