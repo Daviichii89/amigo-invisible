@@ -227,10 +227,9 @@ pnpm lint       # Linter ESLint
 
 Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
-## 📚 Documentación Adicional
+## 📚 Documentación
 
-- [QUICKSTART.md](./QUICKSTART.md) - Guía rápida de configuración Firebase
-- [FIREBASE_SETUP.md](./FIREBASE_SETUP.md) - Documentación detallada Firebase (obsoleta, ver QUICKSTART)
+- [QUICKSTART.md](./QUICKSTART.md) - Guía completa de configuración y setup de Firebase
 
 ## 🙏 Agradecimientos
 
@@ -239,27 +238,3 @@ Desarrollado con ❤️ para facilitar la organización del amigo invisible.
 ---
 
 **¿Preguntas o sugerencias?** Abre un [issue](https://github.com/Daviichii89/amigo-invisible/issues) o contáctame.
-
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```

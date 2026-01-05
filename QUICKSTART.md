@@ -103,17 +103,33 @@ src/
 ├── lib/
 │   └── firebase.ts              # Configuración de Firebase
 ├── contexts/
-│   └── AuthContext.tsx          # Context de autenticación
+│   ├── AuthContext.tsx          # Context de autenticación
+│   └── I18nContext.tsx          # Context de internacionalización
 ├── hooks/
-│   └── useFirestore.ts          # Hooks para Firestore (grupos y participantes)
+│   ├── useFirestore.ts          # Hooks para Firestore (grupos y participantes)
+│   ├── useModal.ts              # Hook para gestión de modales
+│   └── useCopyToClipboard.ts   # Hook para copiar al portapapeles
 ├── components/
+│   ├── ui/                      # Design System
+│   │   ├── Button.tsx           # Componente Button (5 variantes)
+│   │   ├── Input.tsx            # Componente Input con validación
+│   │   ├── Modal.tsx            # Componente Modal
+│   │   ├── BackButton.tsx       # Botón de navegación
+│   │   ├── InfoBox.tsx          # Caja informativa
+│   │   ├── Skeleton.tsx         # Skeleton loaders
+│   │   └── Accordion.tsx        # Contenedor colapsable
 │   ├── LoginPage.tsx            # Página de login
 │   ├── HomePage.tsx             # Lista de grupos del usuario
 │   ├── CreateGroupPage.tsx      # Formulario crear grupo
 │   ├── JoinGroupPage.tsx        # Unirse con código
 │   ├── GroupViewPage.tsx        # Vista del grupo
 │   ├── ParticipantCard.tsx      # Tarjeta de participante con regalos
-│   └── AddGiftForm.tsx          # Formulario añadir regalo
+│   ├── AddGiftForm.tsx          # Formulario añadir regalo
+│   └── LanguageSwitcher.tsx     # Selector de idioma
+├── i18n/
+│   ├── es.ts                    # Traducciones en español
+│   ├── en.ts                    # Traducciones en inglés
+│   └── index.ts                 # Sistema i18n
 └── types.ts                     # Tipos: Group, Participant, Gift, Member
 ```
 
@@ -173,6 +189,11 @@ groups (collection)
 - ✅ Imágenes y URLs en regalos
 - ✅ Seguridad por roles (admin/member)
 - ✅ Múltiples grupos por usuario
+- ✅ **Multiidioma** (Español/Inglés) con cambio en vivo
+- ✅ **Design System** completo con componentes reutilizables
+- ✅ **Skeleton loaders** para mejor experiencia de carga
+- ✅ **Custom hooks** para gestión de estado (useModal, useCopyToClipboard)
+- ✅ **Deploy en Vercel** con SPA routing configurado
 
 ## 🔐 Seguridad:
 
