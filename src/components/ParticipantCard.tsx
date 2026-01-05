@@ -69,15 +69,26 @@ export function ParticipantCard({
   const title = `${participant.name}${isMe ? ` ${t('groupView.you')}` : ''}`;
   const subtitle = gifts.length > 0 ? `(${gifts.length} ${gifts.length === 1 ? t('groupView.gift') : t('groupView.gifts')})` : undefined;
 
-  const footerActions = isAdmin ? (
-    <div className="flex justify-center mt-4 pt-4 border-t border-gray-200">
-      <Button
-        onClick={handleDelete}
-        variant="danger"
-        size="sm"
-      >
-        {t('groupView.deleteParticipant')}
-      </Button>
+  const footerActions = (canEdit || isAdmin) ? (
+    <div className="flex flex-col sm:flex-row justify-center gap-2 mt-4 pt-4 border-t border-gray-200">
+      {canEdit && (
+        <Button
+          onClick={onAddGift}
+          variant="primary"
+          size="sm"
+        >
+          {t('groupView.addGift')}
+        </Button>
+      )}
+      {isAdmin && (
+        <Button
+          onClick={handleDelete}
+          variant="danger"
+          size="sm"
+        >
+          {t('groupView.deleteParticipant')}
+        </Button>
+      )}
     </div>
   ) : undefined;
 
@@ -89,17 +100,6 @@ export function ParticipantCard({
         footerActions={footerActions}
         className={isMe ? 'border-indigo-600 bg-indigo-50' : 'border-gray-300 bg-gray-50'}
       >
-        {canEdit && (
-          <Button
-            onClick={onAddGift}
-            variant="primary"
-            size="sm"
-            className="mb-2"
-          >
-            {t('groupView.addGift')}
-          </Button>
-        )}
-
         {loading ? (
           <div className="space-y-2">
             <GiftCardSkeleton />
