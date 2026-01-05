@@ -78,6 +78,8 @@ export const en = {
     add: 'Add',
     adding: 'Adding...',
     addError: 'Error adding participant',
+    editName: 'Edit group name',
+    editNameError: 'Error updating group name',
     participantsTitle: 'Participants',
     noParticipants: 'No participants yet',
     you: '(You)',

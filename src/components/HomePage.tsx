@@ -41,7 +41,7 @@ export function HomePage() {
       <div className="w-full max-w-4xl">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
         <div>
-          <h1 className="text-2xl sm:text-4xl font-bold">🎁 {t('login.title')} 2026</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold">🎁 {t('login.title')}</h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">
             {t('home.greeting')}, {user?.displayName || user?.email}
           </p>
@@ -94,7 +94,7 @@ export function HomePage() {
               return (
                 <div
                   key={group.id}
-                  className="border border-gray-300 rounded-lg p-4 bg-gray-50 transition-all hover:bg-gray-100 hover:border-indigo-600 relative"
+                  className="border border-gray-300 rounded-lg p-4 bg-gray-50 transition-all hover:bg-gray-100 hover:border-indigo-600"
                 >
                   <div 
                     onClick={() => navigate(`/group/${group.id}`)}
@@ -107,15 +107,16 @@ export function HomePage() {
                     </p>
                   </div>
                   {isAdmin && (
-                    <Button
-                      onClick={(e: React.MouseEvent) => handleDeleteGroup(group.id, group.name, e)}
-                      disabled={deleting === group.id}
-                      variant="danger"
-                      size="sm"
-                      className="absolute top-4 right-4"
-                    >
-                      {deleting === group.id ? t('common.loading') : `🗑️ ${t('home.deleteGroup')}`}
-                    </Button>
+                    <div className="flex justify-center mt-4 pt-4 border-t border-gray-200">
+                      <Button
+                        onClick={(e: React.MouseEvent) => handleDeleteGroup(group.id, group.name, e)}
+                        disabled={deleting === group.id}
+                        variant="danger"
+                        size="sm"
+                      >
+                        {deleting === group.id ? t('common.loading') : `🗑️ ${t('home.deleteGroup')}`}
+                      </Button>
+                    </div>
                   )}
                 </div>
               );

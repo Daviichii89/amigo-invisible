@@ -7,6 +7,7 @@ interface AccordionProps {
   children: ReactNode;
   defaultExpanded?: boolean;
   headerActions?: ReactNode;
+  footerActions?: ReactNode;
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export function Accordion({
   children,
   defaultExpanded = false,
   headerActions,
+  footerActions,
   className = '',
 }: AccordionProps) {
   const { t } = useI18n();
@@ -43,6 +45,7 @@ export function Accordion({
       </div>
 
       {isExpanded && <div className="mt-2">{children}</div>}
+      {footerActions && <div className="mt-2">{footerActions}</div>}
     </div>
   );
 }

@@ -276,6 +276,16 @@ export async function createGroup(userId: string, name: string, maxBudget: numbe
   }
 }
 
+export async function updateGroupName(groupId: string, newName: string) {
+  try {
+    const groupRef = doc(db, 'groups', groupId);
+    await updateDoc(groupRef, { name: newName });
+  } catch (error) {
+    console.error('Error updating group name:', error);
+    throw error;
+  }
+}
+
 export async function joinGroupByCode(userId: string, inviteCode: string, userName: string, userEmail: string) {
   try {
     // Buscar grupo por código de invitación
